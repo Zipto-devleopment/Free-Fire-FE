@@ -19,7 +19,7 @@ function Login() {
     }
 
     try {
-        const response = await axios.post(`${import.meta.env.VITE_BASEURL}joinRoom/adminID`, {
+        const response = await axios.post(`${import.meta.env.VITE_BASEURL}/joinRoom/adminID`, {
             id: adminID,
             password: adminPassword,
           });

@@ -35,7 +35,7 @@ function Rs20() {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASEURL}participent/userDetails/rs5`,
+        `${import.meta.env.VITE_BASEURL}/participent/userDetails/rs5`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
