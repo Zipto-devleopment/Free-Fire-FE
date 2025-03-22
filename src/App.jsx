@@ -10,7 +10,7 @@ import Rs20 from './pages/Rs20';
 import Login from './pages/Login';
 import Adminpage from './pages/Adminpage';
 import JoinRoom from './pages/JoinrRoom';
-import Room from './Room';
+
 
 const App = () => {
   return (
