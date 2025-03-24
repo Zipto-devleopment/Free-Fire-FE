@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Adminpage from './pages/Adminpage';
 import JoinRoom from './pages/JoinrRoom';
 import Room from './Room';
+import Contect from './pages/Contect';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/joinroom" element={<JoinRoom />} />
         <Route path="/room" element={<Room />} />
+        <Route path="/contect" element={<Contect />} />
         <Route path="/adminpage" element={<Adminpage />} />
       </Routes>
     </Router>

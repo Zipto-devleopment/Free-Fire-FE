@@ -96,11 +96,13 @@ function Home() {
 
         {/* Contact */}
         <div className="col-12 col-md-3">
+        <Link to={"/contect"}>
           <div className="card bg-success text-white text-center shadow-sm">
             <div className="card-body">
               <h5 className="card-title">Contact</h5>
             </div>
           </div>
+          </Link>
         </div>
         
       </div>

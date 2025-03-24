@@ -37,12 +37,15 @@ function Rs5() {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/participent/userDetails/rs5`,
+        `${import.meta.env.VITE_BASEURL}participent/userDetails/rs5`,
         formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { 
+          withCredentials: true, // Correct Placement
+          headers: { "Content-Type": "multipart/form-data" }
+        }
       );
       loadingBar.current.complete(); // Stop loading bar
-      toast.success("✅ " + response.data);
+      toast.success("✅ " + response.data.message);
       setGameID("");
       setUpiID("");
       setScreenshot(null);

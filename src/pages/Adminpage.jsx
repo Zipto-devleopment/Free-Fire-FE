@@ -9,11 +9,13 @@ function Adminpage() {
   const [filter, setFilter] = useState("all"); // Default filter
   const [filterDelete, setFilterDelete] = useState("all"); // Default filter
   const [loading, setLoading] = useState(false);
+  const [complaints, setComplaints] = useState([]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${import.meta.env.VITE_BASEURL}/joinRoom/roomID`, {
+      await axios.post(`${import.meta.env.VITE_BASEURL}joinRoom/roomID`, {
         RoomID: roomID,
         RoomPassword: roomPassword,
       });
@@ -31,7 +33,7 @@ function Adminpage() {
     if (!confirmDelete) return;
   
     try {
-      const roomResponse = await axios.get(`${import.meta.env.VITE_BASEURL}/joinRoom/getroomID`);
+      const roomResponse = await axios.get(`${import.meta.env.VITE_BASEURL}joinRoom/getroomID`);
       const room = roomResponse.data;
   
       if (!room || !room._id) {
@@ -39,7 +41,7 @@ function Adminpage() {
         return;
       }
   
-      await axios.delete(`${import.meta.env.VITE_BASEURL}/joinRoom/deleteID/${room._id}`);
+      await axios.delete(`${import.meta.env.VITE_BASEURL}joinRoom/deleteID/${room._id}`);
       toast.success("✅ Room deleted successfully!");
   
       setRoomID("");
@@ -52,18 +54,28 @@ function Adminpage() {
 
   useEffect(() => {
     fetchParticipants();
+    const fetchComplaints = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_BASEURL}contact/all`);
+        setComplaints(response.data);
+      } catch (error) {
+        console.error("Error fetching complaints:", error);
+      }
+    };
+
+    fetchComplaints();
   }, [filter, filterDelete]); // Refetch when filter or filterDelete changes
 
   const fetchParticipants = async () => {
     setLoading(true);
-    let url = `${import.meta.env.VITE_BASEURL}/participent/getUserDetails`; // Default all users
+    let url = `${import.meta.env.VITE_BASEURL}participent/getUserDetails`; // Default all users
     
     if (filter === "5") {
-      url = `${import.meta.env.VITE_BASEURL}/participent/getAll5rsUserDetails`;
+      url = `${import.meta.env.VITE_BASEURL}participent/getAll5rsUserDetails`;
     } else if (filter === "10") {
-      url = `${import.meta.env.VITE_BASEURL}/participent/getAll10rsUserDetails`;
+      url = `${import.meta.env.VITE_BASEURL}participent/getAll10rsUserDetails`;
     } else if (filter === "20") {
-      url = `${import.meta.env.VITE_BASEURL}/participent/getAll20rsUserDetails`;
+      url = `${import.meta.env.VITE_BASEURL}participent/getAll20rsUserDetails`;
     }
 
     try {
@@ -86,7 +98,7 @@ function Adminpage() {
     const confirmDelete = window.confirm(`Are you sure you want to delete all ₹${filterDelete} participants?`);
     if (!confirmDelete) return;
 
-    const deleteURL = `${import.meta.env.VITE_BASEURL}/participent/deleteAll${filterDelete}rsUserDetails`;
+    const deleteURL = `${import.meta.env.VITE_BASEURL}participent/deleteAll${filterDelete}rsUserDetails`;
 
     try {
       await axios.delete(deleteURL);
@@ -113,7 +125,7 @@ function Adminpage() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_BASEURL}/participent/deleteParticipant/${id}`);
+      await axios.delete(`${import.meta.env.VITE_BASEURL}participent/deleteParticipant/${id}`);
       toast.success("✅ Participant deleted successfully!");
 
       // Refresh participant list after deletion
@@ -134,7 +146,7 @@ function Adminpage() {
       }
   
       const response = await axios.post(
-       `${import.meta.env.VITE_BASEURL}/participent/verifyParticipant`,
+        "http://localhost:5000/participent/verifyParticipant",
         { id, verified: !verified } // Toggle the verified status
       );
   
@@ -277,6 +289,20 @@ function Adminpage() {
           <p className="text-center text-muted">No participants found.</p>
         )}
       </div>
+
+      <div className="container mt-5">
+      <h2 className="text-center">📜 User Complaints</h2>
+      <ul className="list-group">
+        {complaints.map((complaint, index) => (
+          <li key={index} className="list-group-item">
+            <strong>Game ID:</strong> {complaint.GameID} <br />
+            <strong>Problem:</strong> {complaint.Problem} <br />
+            <strong>Summary:</strong> {complaint.Summary} <br />
+            <small className="text-muted">Submitted: {new Date(complaint.createdAt).toLocaleString()}</small>
+          </li>
+        ))}
+      </ul>
+    </div>
     </div>
   );
 }
