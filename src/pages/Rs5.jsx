@@ -10,7 +10,7 @@ function Rs5() {
   const [gameFee, setGameFee] = useState(5);
   const [gameID, setGameID] = useState("");
   const [upiID, setUpiID] = useState("");
-  const [screenshot, setScreenshot] = useState(null);
+  const [utrNumber, setutrNumber] = useState("");
   const loadingBar = useRef(null); // Ref for loading bar
   const navigate=useNavigate("")
 
@@ -22,16 +22,13 @@ function Rs5() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!gameFee || !gameID || !upiID || !screenshot) {
-      toast.error("⚠ Please fill all fields and upload a screenshot.");
+    if (!gameFee || !gameID || !upiID || !utrNumber) {
+      toast.error("⚠ Please fill all fields and upload a UTR Number");
       return;
     }
 
-    const formData = new FormData();
-    formData.append("GameFee", gameFee);
-    formData.append("GameID", gameID);
-    formData.append("UpiID", upiID);
-    formData.append("screenshot", screenshot);
+  
+    const formData ={GameFee: gameFee,GameID: gameID ,UpiID:upiID ,UtrNumber:utrNumber}
 
     loadingBar.current.continuousStart(); // Start loading bar
 
@@ -41,21 +38,19 @@ function Rs5() {
         formData,
         { 
           withCredentials: true, // Correct Placement
-          headers: { "Content-Type": "multipart/form-data" }
         }
       );
       loadingBar.current.complete(); // Stop loading bar
       toast.success("✅ " + response.data.message);
       setGameID("");
       setUpiID("");
-      setScreenshot(null);
+      setutrNumber("")
       navigate("/joinroom")
     } catch (error) {
       loadingBar.current.complete(); // Stop loading bar
       toast.error("❌ Error: Not a participant. Try again.");
     }
   };
-
   return (
     <div className="container mt-5">
       {/* Loading Bar */}
@@ -92,7 +87,7 @@ function Rs5() {
           <li className="list-group-item">💰 Pay and Take Screenshot</li>
           <li className="list-group-item">📌 Submit Your UPI ID</li>
           <li className="list-group-item">📌 Submit Your Game UID</li>
-          <li className="list-group-item">📌 Upload Screenshot & Click Submit</li>
+          <li className="list-group-item">📌 Upload UTR Number & Click Submit</li>
           <li className="list-group-item">📌 Room ID & Password Available at Game Time</li>
         </ul>
       </div>
@@ -131,14 +126,14 @@ function Rs5() {
           />
         </div>
 
-        {/* Screenshot Upload */}
         <div className="mb-3">
-          <label className="form-label fw-bold">Upload Payment Screenshot</label>
+          <label className="form-label fw-bold">UTR Number</label>
           <input
-            type="file"
+            type="text"
             className="form-control"
-            accept="image/*"
-            onChange={(e) => setScreenshot(e.target.files[0])}
+            placeholder="Enter your Game ID"
+            value={utrNumber}
+            onChange={(e) => setutrNumber(e.target.value)}
             required
           />
         </div>

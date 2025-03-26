@@ -45,7 +45,7 @@ function Home() {
             </Link>
             <div className="card-body">
               <h5 className="card-title">Participant Game ₹5</h5>
-              <p>28 March 2025 <br /> 7:45 AM - 8:45 AM (Morning)</p>
+              <p>29 March 2025 <br /> 7:45 AM - 8:45 AM (Morning)</p>
 
             </div>
           </div>
@@ -59,7 +59,7 @@ function Home() {
             </Link>
             <div className="card-body">
               <h5 className="card-title">Participant Game ₹10</h5>
-              <p>28 March 2025 <br /> 8:45 AM - 9:45 AM (Morning)</p>
+              <p>29 March 2025 <br /> 8:45 AM - 9:45 AM (Morning)</p>
 
             </div>
           </div>
@@ -74,7 +74,7 @@ function Home() {
             </Link>
             <div className="card-body">
               <h5 className="card-title">Participant Game ₹20</h5>
-              <p>28 March 2025 <br /> 9:45 AM - 10:45 AM (Morning)</p>
+              <p>29 March 2025 <br /> 9:45 AM - 10:45 AM (Morning)</p>
             </div>
           </div>
         </div>

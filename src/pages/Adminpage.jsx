@@ -146,7 +146,7 @@ function Adminpage() {
       }
   
       const response = await axios.post(
-        "http://localhost:5000/participent/verifyParticipant",
+        `${import.meta.env.VITE_BASEURL}participent/verifyParticipant`,
         { id, verified: !verified } // Toggle the verified status
       );
   
@@ -241,7 +241,7 @@ function Adminpage() {
                 <th>Game Fee</th>
                 <th>Game ID</th>
                 <th>UPI ID</th>
-                <th>Payment Screenshot</th>
+                <th>Payment UTR</th>
                 <th>Verify</th>
                 <th>Delete</th>
               </tr>
@@ -252,25 +252,7 @@ function Adminpage() {
                   <td>{participant.GameFee}</td>
                   <td>{participant.GameID}</td>
                   <td>{participant.UpiID}</td>
-                  <td>
-                    {participant.screenshot ? (
-                      <a
-                        href={participant.screenshot.startsWith("http") ? participant.screenshot : `${import.meta.env.VITE_BASEURL}${participant.screenshot}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <img
-                          src={participant.screenshot.startsWith("http") ? participant.screenshot : `${import.meta.env.VITE_BASEURL}${participant.screenshot}`}
-                          alt="Payment Proof"
-                          width="100"
-                          height="100"
-                          className="img-thumbnail"
-                        />
-                      </a>
-                    ) : (
-                      <span className="text-muted">No Screenshot</span>
-                    )}
-                  </td>
+                  <td>{participant.UtrNumber}</td>
                   <td>
                     <input
                       type="checkbox"
