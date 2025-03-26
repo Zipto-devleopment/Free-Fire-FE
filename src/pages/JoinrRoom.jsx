@@ -30,7 +30,7 @@ const JoinRoom = () => {
     }
   
     try {
-      const verifyResponse = await axios.post(`${import.meta.env.VITE_BASEURL}joinRoom/verifyUser`, {
+      const verifyResponse = await axios.post(`${import.meta.env.VITE_BASEURL}/joinRoom/verifyUser`, {
         GameID,
         GameFee,
       });
@@ -41,7 +41,7 @@ const JoinRoom = () => {
         return;
       }
   
-      const roomResponse = await axios.get(`${import.meta.env.VITE_BASEURL}joinRoom/getroomID`);
+      const roomResponse = await axios.get(`${import.meta.env.VITE_BASEURL}/joinRoom/getroomID`);
   
       setRoomData(roomResponse.data);
       setError("");

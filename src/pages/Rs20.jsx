@@ -33,7 +33,7 @@ function Rs20() {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASEURL}participent/userDetails/rs20`,
+        `${import.meta.env.VITE_BASEURL}/participent/userDetails/rs20`,
         formData,
         {
           withCredentials: true, 

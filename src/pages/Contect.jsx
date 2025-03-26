@@ -18,7 +18,7 @@ const Contect = () => {
     }
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASEURL}contact/submit`, {
+      const response = await axios.post(`${import.meta.env.VITE_BASEURL}/contact/submit`, {
         GameID: gameID,
         Problem: problem,
         Summary: summary,
